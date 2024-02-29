@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {useState} from 'react'
 import './App.css'
 // 
@@ -5,10 +6,12 @@ const App=()=>{
 const [todo,setTodo]= useState('')
 const[todos,setTodos]= useState([{id:1,item:'go to market',status:'incomplete'}])
 console.log(todos)
-const addTodo=(e)=>{
+const addTodo= async (e)=>{
   e.preventDefault()
-  setTodos([...todos,{id:todos.length+1,item:todo,status:'incomplete'}])
-  setTodo('')
+  let response = await axios.post('http://localhost:5000/todos',{item:todo,status:'incomplete'})
+  console.log(response)
+  // setTodos([...todos,{id:todos.length+1,item:todo,status:'incomplete'}])
+  // setTodo('')
 }
 
 const completeTodo=(checked,id)=>{
